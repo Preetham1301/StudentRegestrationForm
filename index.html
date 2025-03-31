@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Author" content="Preetha Raj">
+    <meta name="keywords" content="html,css,js">
+    <meta name="description" content="Student Registration form">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Student Registration Form</h1>
+        <p>This form is created to recieve the student details such as name , id , email and mobile number in their specified feild</p>
+    </header>
+
+    <!-- the below section is for the students to input their information-->
+    <div id="area">
+        <fieldset>
+            <section id="form-for-students" class="form-for-students-js">
+                <form action="">
+                    <div>
+                    <label for="name">Student Name</label>
+                    <input type="text" name="name" id="sname" required />
+            
+                    <label for="studentid">Student Id</label>
+                    <input type="number" name="studentid" id="studentid" required />
+            
+                    <label for="gmail">Student College MailID</label>
+                    <input type="email" name="gmail" id="gmail" required />
+                    
+                    <label for="mobile">Students Contact Number</label>
+                    <input type="number" name="mobile" id="mobile" required />
+                    </div>
+                </form>
+                <button type="button" id="submitbutton">Submit Information</button>
+            </section>
+        </fieldset>
+    </div>
+
+    <!-- the below is the table part where the student input values are displayed-->
+     <section class="registerdtable">
+        <div class="tableheading">
+            <h1>Students Registered </h1>
+        </div>
+
+    <div class="tablecontainer">
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Student Id</th>
+                    <th>Student Mail</th>
+                    <th>Student Number</th>
+                    <th>Functions</th>
+                </tr>
+            </thead>
+            <tbody id="indexnumbers" class="newregisteredstudent">
+                <!-- Student details will be displayed here after submitted -->
+            </tbody>
+        </table>
+    </div>
+     </section>
+     <script src="script.js"></script>
+</body>
+</html>

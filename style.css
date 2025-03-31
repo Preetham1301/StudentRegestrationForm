@@ -1,0 +1,122 @@
+* {
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+    background-image: url(/image/img.jpg);
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    color: rgb(12, 12, 12);
+    position: relative;
+    font-weight: bolder;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-style: italic;
+    text-decoration: underline;
+    text-decoration-color: rgb(229, 255, 0);
+}
+
+
+
+#area {
+    max-width: 700px;
+    height: 250px;
+    display: inline-block;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25%;
+    margin-left: 25%;
+    margin-top: 100px;
+}
+
+fieldset {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(/image/img2.jpg);
+    border-radius: 10%;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px 5px #ccc;
+    padding: 1%;
+}
+
+#form-for-students {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: brown;
+    position: relative;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+div>label {
+    display: block;
+    font-weight: bolder;
+}
+
+div>input {
+    border: 2px solid slateblue;
+}
+
+section>button {
+    color: rgb(248, 243, 244);
+    background-color: rgb(10, 10, 10);
+    display: block;
+    font-weight: bolder;
+}
+
+button:hover {
+    color: black;
+    background-color: beige;
+    cursor: pointer;
+}
+
+.registerdtable {
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.tableheading>h1 {
+    font-style: italic;
+    font-family: cursive;
+    font-size: xx-large;
+    color: cyan;
+    text-decoration: underline;
+}
+
+table {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+table th,
+table td {
+    border: 5px solid bisque;
+    text-align: center;
+    padding: 10px;
+}
+
+th {
+    background-color: ghostwhite;
+}
+
+.tablecontainer {
+    background-color: bisque;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 100%;
+}
