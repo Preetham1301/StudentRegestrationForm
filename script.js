@@ -8,22 +8,44 @@ let button = document.querySelector('#submitbutton');
 
 let editIndex = -1; // Track index for editing
 
-// Function to add/update student information
-function addvalue() {
+function validateInputs() {
+    let namePattern = /^[A-Za-z\s]+$/;  // Only letters and spaces
+    let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;  // Valid email format
+    let contactPattern = /^\d{10}$/;  // 10-digit mobile number
+
     if (studentname.value === "" || studentid.value === "" || gmail.value === "" || contact.value === "") {
         alert("YOU NEED TO FILL ALL THE DETAILS");
         return;
     }
-
+    if (!namePattern.test(studentname.value)) {
+        alert("Please enter a valid name (Only letters and spaces allowed).");
+        return false;
+    }
+    if (!emailPattern.test(gmail.value)) {
+        alert("Please enter a valid email address.");
+        return false;
+    }
+    if (!contactPattern.test(contact.value)) {
+        alert("PLEASE ENTER A VALID 10-DIGIT MOBILE NUMBER");
+        return false;
+    }
     if (studentid.value.length > 5) {
         alert("PLEASE ENTER A VALID ID (Max 5 Digits)");
         return;
     }
+    return true;
+}
 
-    if (contact.value.length !== 10) {
-        alert("PLEASE ENTER A VALID 10-DIGIT MOBILE NUMBER");
-        return;
-    }
+
+
+
+// Function to add/update student information
+function addvalue(event) {
+    event.preventDefault(); // Prevent form submission
+
+    if (!validateInputs()) return;
+
+
 
     let studentData = {
         name: studentname.value,
@@ -66,8 +88,8 @@ function loadValuesToTable() {
         <td> ${student.email}</td>
         <td> ${student.contact}</td>
         <td>
-            <button onclick="editStudent(${index})">Edit</button>
-            <button onclick="deleteStudent(${index})">Delete</button>
+            <button onclick="editStudent(${index})"><box-icon name='edit-alt'></box-icon></button>
+            <button onclick="deleteStudent(${index})"><box-icon type='solid' name='folder-minus'></box-icon></button>
         </td>`;
 
         registeredstudents.appendChild(row);
