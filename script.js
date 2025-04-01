@@ -5,71 +5,61 @@ let gmail = document.querySelector('#gmail');
 let contact = document.querySelector('#mobile');
 let registeredstudents = document.querySelector('#indexnumbers');
 let button = document.querySelector('#submitbutton');
-let namePattern = /^[A-Za-z\s]+$/;
-let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 let editIndex = -1; // Track index for editing
 
-
+// Function to add/update student information
 function addvalue() {
-    if (studentname.value === "" || studentid.value === "" || gmail.value === "" || contactNumber.value === "") {
-        alert(`Oops! Please fill out all fields.`);
+    if (studentname.value === "" || studentid.value === "" || gmail.value === "" || contact.value === "") {
+        alert("YOU NEED TO FILL ALL THE DETAILS");
         return;
     }
 
-    if (studentID.value.length > 5) {
-        alert(`The student ID should be less than 5 digits.`);
-        return;
-    }
-    if (!namePattern.test(studentname)) {
-        alert("Invalid Name: Only alphabets and spaces allowed!");
-        event.preventDefault(); // Stop form submission
-    }
-
-    if (!emailPattern.test(gmail)) {
-        alert("Invalid Email: Enter a valid email address!");
-        event.preventDefault();
-    }
-
-    if (contactNumber.value.length > 10) {
-        alert(`The contact number should not be more than 10 digits.`);
+    if (studentid.value.length > 5) {
+        alert("PLEASE ENTER A VALID ID (Max 5 Digits)");
         return;
     }
 
+    if (contact.value.length !== 10) {
+        alert("PLEASE ENTER A VALID 10-DIGIT MOBILE NUMBER");
+        return;
+    }
+
+    let studentData = {
+        name: studentname.value,
+        id: studentid.value,
+        email: gmail.value,
+        contact: contact.value
+    };
+
+    let datastore = JSON.parse(localStorage.getItem("studentInfo")) || [];
+
+
+    if (editIndex === -1) {
+        datastore.push(studentData);
+    } else {
+        datastore[editIndex] = studentData;
+        editIndex = -1;
+        button.textContent = "Submit";
+    }
+
+    localStorage.setItem("studentInfo", JSON.stringify(datastore));
 
     studentname.value = "";
     studentid.value = "";
     gmail.value = "";
     contact.value = "";
 
-
-    let datastore = JSON.parse(localStorage.getItem("studentInfo"));
-    let studentData = {
-        name: studentname.value,
-        id: studentid.value,
-        email: gmail.value,
-        contact: contact.value
-    }
-    if (editIndex === -1) {
-        datastore.push(studentData)
-    } else {
-        datastore[editIndex] = studentData;
-        editIndex = -1;
-        button.textContent = "submit";
-    }
-
-    localStorage.setItem("studentInfo", JSON.stringify(datastore));
-
     loadValuesToTable();
 }
 
-
+// Function to load students into the table
 function loadValuesToTable() {
-    registeredstudents.innerHTML = " ";
-    let datastore = JSON.parse(localStorage.getItem("studentInfo"));
+    registeredstudents.innerHTML = ""; // Clear table
+    let datastore = JSON.parse(localStorage.getItem("studentInfo")) || [];
 
     datastore.forEach((student, index) => {
-        let row = document.createElement("tr")
+        let row = document.createElement("tr");
         row.innerHTML = `
         <td> ${student.name}</td> 
         <td> ${student.id}</td>
@@ -80,12 +70,13 @@ function loadValuesToTable() {
             <button onclick="deleteStudent(${index})">Delete</button>
         </td>`;
 
-        registeredstudents.appendChild(row)
+        registeredstudents.appendChild(row);
     });
 }
 
+// Function to edit a student
 function editStudent(index) {
-    let datastore = JSON.parse(localStorage.getItem("studentInfo"));
+    let datastore = JSON.parse(localStorage.getItem("studentInfo")) || [];
     let student = datastore[index];
 
     studentname.value = student.name;
@@ -94,18 +85,19 @@ function editStudent(index) {
     contact.value = student.contact;
 
     editIndex = index;
-    button.textContent = "update";
-
+    button.textContent = "Update";
 }
 
+// Function to delete a student
 function deleteStudent(index) {
-    let datastore = JSON.parse(localStorage.getItem("studentInfo"));
-    datastore.splice(index, 1);
+    let datastore = JSON.parse(localStorage.getItem("studentInfo")) || [];
+    datastore.splice(index, 1); // Corrected from slice() to splice()
     localStorage.setItem("studentInfo", JSON.stringify(datastore));
     loadValuesToTable();
 }
 
-
+// Add event listener for the submit button
 button.addEventListener("click", addvalue);
 
+// Load data when page loads
 window.onload = loadValuesToTable;
