@@ -5,11 +5,44 @@ let gmail = document.querySelector('#gmail');
 let contact = document.querySelector('#mobile');
 let registeredstudents = document.querySelector('#indexnumbers');
 let button = document.querySelector('#submitbutton');
+let namePattern = /^[A-Za-z\s]+$/;
+let emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 let editIndex = -1; // Track index for editing
 
 
 function addvalue() {
+    if (studentname.value === "" || studentid.value === "" || gmail.value === "" || contactNumber.value === "") {
+        alert(`Oops! Please fill out all fields.`);
+        return;
+    }
+
+    if (studentID.value.length > 5) {
+        alert(`The student ID should be less than 5 digits.`);
+        return;
+    }
+    if (!namePattern.test(studentname)) {
+        alert("Invalid Name: Only alphabets and spaces allowed!");
+        event.preventDefault(); // Stop form submission
+    }
+
+    if (!emailPattern.test(gmail)) {
+        alert("Invalid Email: Enter a valid email address!");
+        event.preventDefault();
+    }
+
+    if (contactNumber.value.length > 10) {
+        alert(`The contact number should not be more than 10 digits.`);
+        return;
+    }
+
+
+    studentname.value = "";
+    studentid.value = "";
+    gmail.value = "";
+    contact.value = "";
+
+
     let datastore = JSON.parse(localStorage.getItem("studentInfo"));
     let studentData = {
         name: studentname.value,
@@ -26,11 +59,6 @@ function addvalue() {
     }
 
     localStorage.setItem("studentInfo", JSON.stringify(datastore));
-
-    studentname.value = "";
-    studentid.value = "";
-    gmail.value = "";
-    contact.value = "";
 
     loadValuesToTable();
 }
